@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@import "tailwindcss";
+
+
+@theme {
+  --font-Montserrat: 'Montserrat', sans-serif;
+  --font-Coolvetica: 'Coolvetica';
+
+
+
+  --color-Text: #222831;
+  --color-purple-main: #9747FF;
+  --color-purple-secondary: #D0B5F2;
+  --color-light-purple: #F5EDFF;
+}
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('fonts/Coolvetica_Rg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

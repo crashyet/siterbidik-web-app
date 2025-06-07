@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="src/assets/logoApp.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Siterbidik</title>
+
+    <style>
+      @media screen and (min-width: 640px) {
+        body {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          /* background: #f0f0f0; */
+        }
+        .app-container {
+          width: 100%;
+          max-width: 390px;
+          min-height: 100vh;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+          box-sizing: border-box;
+        }
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <div id="root"></div>
+      <script type="module" src="/src/main.jsx"></script>
+    </div>
+  </body>
+</html>
