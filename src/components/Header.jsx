@@ -9,7 +9,7 @@ const Header = () => {
         <img src={logoApp} alt="" className='w-10'/>
         <h1 className='font-Coolvetica text-3xl text-white'>Siterbidik</h1>
       </div>
-      <p className='font-Montserrat text-white text-xs font-semibold mt-4'>Aplikasi Terampil Berbicara Di Depan Publik</p>
+      <p className='font-Montserrat text-white text-xs font-semibold mt-4'>Aplikasi Terampil Bernegosiasi Di Depan Publik</p>
     </div>
   )
 }

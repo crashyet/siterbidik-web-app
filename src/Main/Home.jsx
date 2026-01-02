@@ -15,7 +15,7 @@ const Home = () => {
         <div className="flex flex-col w-[85%] mt-4 border-2 border-purple-secondary rounded-2xl p-4">
           <img src={bannerBelajar} alt="" />
 
-          <button className='bg-purple-main mt-4.5 text-white py-3 rounded-full font-Montserrat font-bold text-sm'>Mulai Belajar</button>
+          <button onClick={() => window.location.href = '/learning'} className='bg-purple-main mt-4.5 text-white py-3 rounded-full font-Montserrat font-bold text-sm'>Mulai Belajar</button>
         </div>
 
         <div className="text-purple-secondary mt-20 text-center font-Montserrat font-normal text-sm">

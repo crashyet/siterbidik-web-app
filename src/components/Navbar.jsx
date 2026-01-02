@@ -5,7 +5,7 @@ const Navbar = () => {
     <nav className='w-[85%] mx-auto'>
       <ul className='flex items-center justify-between bg-white rounded-[999px] px-3 py-3 shadow-lg font-Montserrat font-medium text-xs'>
         {[
-          { to: '/', label: 'Beranda' },
+          { to: '/home', label: 'Beranda' },
           { to: '/modul', label: 'Modul' },
           { to: '/profile', label: 'Profil' }
         ].map(({ to, label }) => (
@@ -13,7 +13,7 @@ const Navbar = () => {
             <NavLink
               to={to}
               className={({ isActive }) =>
-                `flex items-center justify-center w-24 py-3 rounded-full transition-all duration-300 ${
+                `flex items-center justify-center w-23 py-3 rounded-full transition-all duration-300 ${
                   isActive ? 'bg-purple-main text-white' : 'text-purple-main'
                 }`
               }
