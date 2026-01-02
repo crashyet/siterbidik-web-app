@@ -14,6 +14,10 @@ import Navbar from './components/Navbar.jsx'
 
 import EditProfile from './Main/Profile/EditProfile.jsx'
 import Learning from './Learning/Learning.jsx'
+import Simulasi from './Learning/Simulasi.jsx'
+import Latihan from './Learning/Latihan.jsx'
+
+import Video1 from './Learning/Videos/Video1.jsx'
 
 function AppContent() {
   const location = useLocation()
@@ -33,12 +37,15 @@ function AppContent() {
 
       <Routes>
         <Route index element={<Splash />} />
+        <Route path='/splash2' element={<Splash2 />} />
         <Route path="/home" element={<Home />} />
         <Route path="/modul" element={<Modul />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/profile/edit' element={<EditProfile />} />
         <Route path='/learning' element={<Learning />} />
-        <Route path='/splash2' element={<Splash2 />} />
+        <Route path='/simulasi' element={<Simulasi />} />
+        <Route path='/latihan' element={<Latihan />} />
+        <Route path='/video1' element={<Video1 />} />
       </Routes>
     </>
   )

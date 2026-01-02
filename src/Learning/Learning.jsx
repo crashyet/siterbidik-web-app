@@ -32,7 +32,7 @@ const Learning = () => {
         <div className="w-full flex flex-col gap-5">
           {/* Simulasi Button */}
           <div className="w-full flex flex-col shadow-md rounded-2xl overflow-hidden">
-            <button className="w-full flex items-center justify-between py-5 px-8">
+            <button onClick={() => navigate('/simulasi')} className="w-full flex items-center justify-between py-5 px-8">
               <h1 className='font-Montserrat font-bold text-purple-main text-sm'>Simulasi</h1>
               <svg 
                 onClick={(e) => {
@@ -63,7 +63,7 @@ const Learning = () => {
 
           {/* Latihan Button */}
           <div className="w-full flex flex-col shadow-md rounded-2xl overflow-hidden">
-            <button className="w-full flex items-center justify-between py-5 px-8">
+            <button onClick={() => navigate('/latihan')} className="w-full flex items-center justify-between py-5 px-8">
               <h1 className='font-Montserrat font-bold text-purple-main text-sm'>Latihan</h1>
               <svg 
                 onClick={(e) => {
