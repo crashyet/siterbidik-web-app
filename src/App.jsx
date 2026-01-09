@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 
 import Splash from './Auth/Splash/Splash1.jsx'
 import Splash2 from './Auth/Splash/Splash2.jsx'
+import Login from './Auth/Login.jsx'
 
 import Home from './Main/Home.jsx'
 import Modul from './Main/Modul.jsx'
@@ -13,9 +15,11 @@ import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
 
 import EditProfile from './Main/Profile/EditProfile.jsx'
+
 import Learning from './Learning/Learning.jsx'
 import Simulasi from './Learning/Simulasi.jsx'
 import Latihan from './Learning/Latihan.jsx'
+import Evaluasi from './Learning/Evaluasi.jsx'
 
 import Video1 from './Learning/Videos/Video1.jsx'
 
@@ -38,6 +42,7 @@ function AppContent() {
       <Routes>
         <Route index element={<Splash />} />
         <Route path='/splash2' element={<Splash2 />} />
+        <Route path='/login' element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/modul" element={<Modul />} />
         <Route path='/profile' element={<Profile />} />
@@ -45,6 +50,7 @@ function AppContent() {
         <Route path='/learning' element={<Learning />} />
         <Route path='/simulasi' element={<Simulasi />} />
         <Route path='/latihan' element={<Latihan />} />
+        <Route path='/evaluasi' element={<Evaluasi />} />
         <Route path='/video1' element={<Video1 />} />
       </Routes>
     </>
@@ -53,9 +59,11 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

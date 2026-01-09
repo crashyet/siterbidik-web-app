@@ -59,12 +59,12 @@ const Splash2 = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1)
     } else {
-      navigate('/home')
+      navigate('/login')
     }
   }
 
   const handleSkip = () => {
-    navigate('/home')
+    navigate('/login')
   }
 
   const handleDotClick = (index) => {

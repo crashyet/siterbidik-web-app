@@ -7,7 +7,7 @@ const Latihan = () => {
 
   return (
     <section className="relative bg-purple-main min-h-screen">
-      <div className="top-0 z-50 px-5 pt-5 pb-6">
+      <div className="top-0 z-50 px-5 pt-15 pb-6">
         <div className="flex items-center relative">
           <button onClick={() => navigate('/learning')} className="flex items-center gap-2 rounded-full border border-purple-secondary p-1.5">
             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -94,7 +94,7 @@ const Learning = () => {
 
           {/* Evaluasi Button */}
           <div className="w-full flex flex-col shadow-md rounded-2xl overflow-hidden">
-            <button className="w-full flex items-center justify-between py-5 px-8">
+            <button onClick={() => navigate('/evaluasi')} className="w-full flex items-center justify-between py-5 px-8">
               <h1 className='font-Montserrat font-bold text-purple-main text-sm'>Evaluasi</h1>
               <svg 
                 onClick={(e) => {

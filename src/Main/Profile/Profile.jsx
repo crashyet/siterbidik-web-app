@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import LogoutModal from '../../components/LogoutModal'
 
 import ic_chat from '../../assets/ic_chat.png'
 import ic_logout from '../../assets/ic_logout.png'
@@ -8,7 +11,24 @@ import profil from '../../assets/img_profil.jpeg'
 import thumb from '../../assets/thumb.jpg'
 
 const Profile = () => {
+  const navigate = useNavigate()
+  const { user, logout } = useAuth()
   const [isActive, setIsActive] = useState("video")
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
+
+  const handleLogoutClick = () => {
+    setShowLogoutModal(true)
+  }
+
+  const handleLogoutConfirm = async () => {
+    setShowLogoutModal(false)
+    await logout()
+    navigate('/login')
+  }
+
+  const handleLogoutCancel = () => {
+    setShowLogoutModal(false)
+  }
 
   return (
     <section className='relative' id='profile'>
@@ -21,13 +41,13 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col font-Montserrat text-black">
-              <h1 className='font-bold text-[13px]'>ADHITYA PUTRA</h1>
-              <h2 className='font-semibold text-[12px] opacity-25'>Siswa</h2>
-              <p className='text-[11px] opacity-25'>Informasi Selengkapnya</p>
+              <h1 className='font-bold text-[13px]'>{user?.name || 'ADHITYA PUTRA'}</h1>
+              <h2 className='font-semibold text-[12px] opacity-25'>{user?.role || '-'}</h2>
+              <p className='text-[11px] opacity-25'>NISN: {user?.nisn || '-'}</p>
             </div>
           </div>
 
-          <button onClick={() => window.location.href = '/profile/edit'} className="">
+          <button onClick={() => navigate('/profile/edit')} className="">
             <img src={ic_edit} alt="" className='w-8' />
           </button>
         </div>
@@ -39,10 +59,10 @@ const Profile = () => {
           </div>
 
           <div className="flex gap-3">
-            <button onClick={() => window.location.href = '/profile/#'} className='bg-white p-3 shadow-lg rounded-xl'>
+            <button onClick={() => navigate('/profile/#')} className='bg-white p-3 shadow-lg rounded-xl'>
               <img src={ic_chat} alt="" className='w-4' />
             </button>
-            <button onClick={() => window.location.href = '/profile/#'} className='bg-white p-3 shadow-lg rounded-xl'>
+            <button onClick={handleLogoutClick} className='bg-white p-3 shadow-lg rounded-xl hover:bg-red-50 transition-colors'>
               <img src={ic_logout} alt="" className='w-4' />
             </button>
           </div>
@@ -123,6 +143,13 @@ const Profile = () => {
         </div>
 
       </div>
+
+      {/* Logout Modal */}
+      <LogoutModal 
+        isOpen={showLogoutModal}
+        onClose={handleLogoutCancel}
+        onConfirm={handleLogoutConfirm}
+      />
     </section>
   )
 }

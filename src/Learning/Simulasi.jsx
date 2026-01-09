@@ -7,7 +7,7 @@ const Simulasi = () => {
   return (
     <section className="relative" id="simulasi">
       {/* Sticky Header */}
-      <div className="sticky top-0 bg-white z-50 px-5 pt-5 pb-3">
+      <div className="sticky top-0 bg-white z-50 px-5 pt-15 pb-3">
         <div className="flex items-center relative">
         
           {/* Button kiri */}

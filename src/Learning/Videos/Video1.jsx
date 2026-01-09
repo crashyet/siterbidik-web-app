@@ -170,7 +170,7 @@ export default function Video1() {
         {/* VIDEO */}
         <video
           ref={videoRef}
-          src="/video/Tema-1.1-Orientasi.mov"
+          src="video/Tema-1.1-Orientasi.mov"
           className="w-full aspect-video"
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
