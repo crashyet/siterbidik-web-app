@@ -22,6 +22,7 @@ import Latihan from './Learning/Latihan.jsx'
 import Evaluasi from './Learning/Evaluasi.jsx'
 
 import Video1 from './Learning/Videos/Video1.jsx'
+import VideoPlayer from './Learning/Videos/VideoPlayer.jsx'
 
 function AppContent() {
   const location = useLocation()
@@ -52,6 +53,7 @@ function AppContent() {
         <Route path='/latihan' element={<Latihan />} />
         <Route path='/evaluasi' element={<Evaluasi />} />
         <Route path='/video1' element={<Video1 />} />
+        <Route path='/video/:videoId' element={<VideoPlayer />} />
       </Routes>
     </>
   )

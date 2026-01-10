@@ -1,8 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { getAllVideos } from '../data/videosData'
 
 const Simulasi = () => {
   const navigate = useNavigate()
+  const videos = getAllVideos()
 
   return (
     <section className="relative" id="simulasi">
@@ -47,126 +49,85 @@ const Simulasi = () => {
         </div>
       </div>
 
-      {/* Video Cards */}
+      {/* Video Cards - Dynamic Rendering */}
       <div className="px-5 mt-4 space-y-4 pb-6">
-        {/* Video Card 1 */}
-        <div onClick={() => navigate('/video1')} className="bg-white rounded-2xl shadow-md overflow-hidden">
-          {/* Thumbnail */}
-          <div className="relative h-32 overflow-hidden">
-            <img 
-              src="/thumbnail/1-1-orientasi.png" 
-              alt="Simulasi Video Thumbnail" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-1.5 right-4 bg-black text-white text-[10px] font-semibold px-4 py-0.5 rounded">
-              0.40
-            </div>
-          </div>
-          
-          {/* Video Info */}
-          <div className="px-4 py-2.5 flex gap-3">
-            {/* Avatar */}
-            <div className="w-10 h-10 rounded-full bg-stroke flex-shrink-0"></div>
-            
-            {/* Text Info */}
-            <div className="flex-1 py-1">
-              <h3 className="font-Montserrat font-bold text-black text-sm">
-                Tema 1.1 Orientasi
-              </h3>
-              <p className="font-Montserrat text-[#A9A9A9] font-semibold text-xs mt-1">
-                Pipit Dwi Komariah
-              </p>
-              <p className="font-Montserrat text-[#A9A9A9] text-xs mt-0.5">
-                36 x ditonton • 3 Hari yang lalu
-              </p>
-            </div>
-            
-            {/* Menu Button */}
-            <button className="flex-shrink-0 h-6">
-              <svg width="4" height="16" viewBox="0 0 4 16" fill="none">
-                <circle cx="2" cy="2" r="2" fill="#000"/>
-                <circle cx="2" cy="8" r="2" fill="#000"/>
-                <circle cx="2" cy="14" r="2" fill="#000"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Video Card 2 */}
-        <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-          {/* Thumbnail */}
-          <div className="relative bg-stroke h-32 flex items-center justify-center">
-            <div className="absolute bottom-1.5 right-4 bg-black text-white text-[10px] font-semibold px-4 py-0.5 rounded">
-              5.00
-            </div>
-          </div>
-          
-          {/* Video Info */}
-          <div className="px-4 py-2.5 flex gap-3">
-            {/* Avatar */}
-            <div className="w-10 h-10 rounded-full bg-stroke flex-shrink-0"></div>
-            
-            {/* Text Info */}
-            <div className="flex-1 py-1">
-              <h3 className="font-Montserrat font-bold text-black text-sm">
-                Simulasi Video
-              </h3>
-              <p className="font-Montserrat text-[#A9A9A9] font-semibold text-xs mt-1">
-                Thoriq Maulana
-              </p>
-              <p className="font-Montserrat text-[#A9A9A9] text-xs mt-0.5">
-                36 x ditonton • 3 Hari yang lalu
-              </p>
+        {videos.map((video) => (
+          <div 
+            key={video.id}
+            onClick={() => navigate(`/video/${video.id}`)} 
+            className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+          >
+            {/* Thumbnail */}
+            <div className="relative h-32 overflow-hidden bg-gradient-to-br from-purple-100 to-purple-200">
+              {/* Thumbnail Image */}
+              {video.thumbnail ? (
+                <>
+                  <img 
+                    src={video.thumbnail} 
+                    alt={video.title}
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Dark overlay for better visibility of play icon */}
+                  <div className="absolute inset-0 bg-black/10"></div>
+                </>
+              ) : (
+                // Fallback gradient background if no thumbnail
+                <div className="w-full h-full bg-gradient-to-br from-purple-100 to-purple-200"></div>
+              )}
+              
+              {/* Play Icon Overlay */}
+              {/* <div className="absolute inset-0 flex items-center justify-center">
+                <svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 60 60"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="drop-shadow-lg"
+                >
+                  <circle cx="30" cy="30" r="30" fill="#FFFFFF" opacity="0.9" />
+                  <path
+                    d="M22 18L40 30L22 42V18Z"
+                    fill="#9747FF"
+                  />
+                </svg>
+              </div> */}
+              
+              {/* Duration Badge */}
+              <div className="absolute bottom-1.5 right-4 bg-black bg-opacity-80 text-white text-[10px] font-semibold px-4 py-0.5 rounded">
+                {video.duration || '5:00'}
+              </div>
             </div>
             
-            {/* Menu Button */}
-            <button className="flex-shrink-0 h-6">
-              <svg width="4" height="16" viewBox="0 0 4 16" fill="none">
-                <circle cx="2" cy="2" r="2" fill="#000"/>
-                <circle cx="2" cy="8" r="2" fill="#000"/>
-                <circle cx="2" cy="14" r="2" fill="#000"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Video Card 3 */}
-        <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-          {/* Thumbnail */}
-          <div className="relative bg-stroke h-32 flex items-center justify-center">
-            <div className="absolute bottom-1.5 right-4 bg-black text-white text-[10px] font-semibold px-4 py-0.5 rounded">
-              5.00
+            {/* Video Info */}
+            <div className="px-4 py-2.5 flex gap-3">
+              {/* Avatar */}
+              <div className="w-10 h-10 rounded-full bg-stroke flex-shrink-0"></div>
+              
+              {/* Text Info */}
+              <div className="flex-1 py-1">
+                <h3 className="font-Montserrat font-bold text-black text-sm">
+                  {video.title}
+                </h3>
+                <p className="font-Montserrat text-[#A9A9A9] font-semibold text-xs mt-1">
+                  {video.author.name}
+                </p>
+                <p className="font-Montserrat text-[#A9A9A9] text-xs mt-0.5">
+                  {video.views} x ditonton • {video.uploadDate}
+                </p>
+              </div>
+              
+              {/* Menu Button */}
+              <button className="flex-shrink-0 h-6">
+                <svg width="4" height="16" viewBox="0 0 4 16" fill="none">
+                  <circle cx="2" cy="2" r="2" fill="#000"/>
+                  <circle cx="2" cy="8" r="2" fill="#000"/>
+                  <circle cx="2" cy="14" r="2" fill="#000"/>
+                </svg>
+              </button>
             </div>
           </div>
-          
-          {/* Video Info */}
-          <div className="px-4 py-2.5 flex gap-3">
-            {/* Avatar */}
-            <div className="w-10 h-10 rounded-full bg-stroke flex-shrink-0"></div>
-            
-            {/* Text Info */}
-            <div className="flex-1 py-1">
-              <h3 className="font-Montserrat font-bold text-black text-sm">
-                Simulasi Video
-              </h3>
-              <p className="font-Montserrat text-[#A9A9A9] font-semibold text-xs mt-1">
-                Thoriq Maulana
-              </p>
-              <p className="font-Montserrat text-[#A9A9A9] text-xs mt-0.5">
-                36 x ditonton • 3 Hari yang lalu
-              </p>
-            </div>
-            
-            {/* Menu Button */}
-            <button className="flex-shrink-0 h-6">
-              <svg width="4" height="16" viewBox="0 0 4 16" fill="none">
-                <circle cx="2" cy="2" r="2" fill="#000"/>
-                <circle cx="2" cy="8" r="2" fill="#000"/>
-                <circle cx="2" cy="14" r="2" fill="#000"/>
-              </svg>
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 

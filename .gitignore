@@ -27,4 +27,6 @@ dist-ssr
 API_SETUP.md
 BACKEND_API_REFERENCE.md
 QUICK_START.md
-README.md
+
+
+public/video/*
