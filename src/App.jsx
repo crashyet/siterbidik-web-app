@@ -24,6 +24,8 @@ import CapaianPembelajaran from './Main/Modul/CapaianPembelajaran.jsx'
 import Quiz from './Learning/Questions/Quiz.jsx'
 import BicaraExam from './Learning/Evaluasi/BicaraExam.jsx'
 import BicaraExamDetail from './Learning/Evaluasi/BicaraExamDetail.jsx'
+import TugasAkhir from './Learning/Evaluasi/TugasAkhir.jsx'
+import TugasAkhirDetail from './Learning/Evaluasi/TugasAkhirDetail.jsx'
 import BukuAjar from './Main/Modul/BukuAjar.jsx'
 import Panduan from './Main/Modul/Panduan.jsx'
 import Materi from './Main/Modul/Materi.jsx'
@@ -71,6 +73,8 @@ function AppContent() {
         <Route path='/panduan' element={<Panduan />} />
         <Route path='/materi' element={<Materi />} />
         <Route path='/materi/teks-negosiasi' element={<MateriFlipbook />} />
+        <Route path='/tugas-akhir' element={<TugasAkhir />} />
+        <Route path='/tugas-akhir/detail' element={<TugasAkhirDetail />} />
         {/* <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} /> */}
       </Routes>
     </>
