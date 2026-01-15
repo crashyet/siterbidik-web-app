@@ -19,7 +19,7 @@ const Home = () => {
         </div>
 
         <div className="text-purple-secondary mt-20 text-center font-Montserrat font-normal text-sm">
-          <h3>Made with love &copy; SMKN1CILACAP</h3>
+          <h3>Made with &copy; Pipit Dwi Komariah</h3>
           <div className=" flex justify-center gap-2 mt-5 mb-8">
             <a href='https://www.instagram.com/smkn1cilacap' target='_blank' rel='noopener noreferrer'>
               <img src={instagram} alt="" className='w-7' />

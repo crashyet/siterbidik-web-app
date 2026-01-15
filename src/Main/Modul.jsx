@@ -1,14 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import book from '../assets/ic_book.png'
 import file from '../assets/ic_file.png'
 
 const Modul = () => {
+  const navigate = useNavigate()
+
   return (
     <section className='relative' id='modul'>
       <div className="w-[85%] flex flex-col items-center mx-auto">
         <div className="grid grid-cols-2 gap-6 mt-10">
-          <button onClick={() => window.location.href = '/modul'}>
+          <button onClick={() => navigate('/capaian-pembelajaran')}>
             <div className="bg-light-purple pl-10 pr-7 pt-12 pb-8 rounded-2xl relative">
               <div className="absolute bg-white text-purple-main top-0 left-0 w-24 py-1.5 rounded-br-2xl font-Montserrat font-bold text-sm">
                 CP
@@ -17,7 +20,7 @@ const Modul = () => {
             </div>
           </button>
 
-          <button onClick={() => window.location.href = '/modul'}>
+          <button onClick={() => navigate('/materi')}>
             <div className="bg-light-purple pl-10 pr-7 pt-12 pb-8 rounded-2xl relative">
               <div className="absolute bg-white text-purple-main top-0 left-0 w-24 py-1.5 rounded-br-2xl font-Montserrat font-bold text-sm">
                 Materi
@@ -26,7 +29,7 @@ const Modul = () => {
             </div>
           </button>
 
-          <button onClick={() => window.location.href = '/modul'}>
+          <button onClick={() => navigate('/buku-ajar')}>
             <div className="bg-light-purple pl-10 pr-7 pt-12 pb-8 rounded-2xl relative">
               <div className="absolute bg-white text-purple-main top-0 left-0 w-24 py-1.5 rounded-br-2xl font-Montserrat font-bold text-sm">
                 Buku Ajar
@@ -35,7 +38,7 @@ const Modul = () => {
             </div>
           </button>
 
-          <button onClick={() => window.location.href = '/modul'}>
+          <button onClick={() => navigate('/panduan')}>
             <div className="bg-light-purple pl-10 pr-7 pt-12 pb-8 rounded-2xl relative">
               <div className="absolute bg-white text-purple-main top-0 left-0 w-24 py-1.5 rounded-br-2xl font-Montserrat font-bold text-sm">
                 Panduan
@@ -45,7 +48,7 @@ const Modul = () => {
           </button>
         </div>
 
-        <div className="mt-10 py-6 px-4 w-full bg-white rounded-t-3xl shadow-[0_-1px_5px_rgba(0,0,0,0.1)]">
+        {/* <div className="mt-10 py-6 px-4 w-full bg-white rounded-t-3xl shadow-[0_-1px_5px_rgba(0,0,0,0.1)]">
           <h1 className='font-Montserrat font-bold text-base text-purple-main text-center'>Unduhan</h1>
 
           <div className="flex flex-col mt-5">
@@ -125,7 +128,7 @@ const Modul = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )

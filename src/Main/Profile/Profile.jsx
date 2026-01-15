@@ -68,16 +68,14 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="mt-8 mb-10">
+        {/* <div className="mt-8 mb-10">
           {isActive === "video" && (
             <div className='flex flex-col gap-6'>
               <button className="w-full rounded-2xl shadow-md">
-                {/* thumbnail */}
                 <div className="rounded-t-2xl h-36 overflow-hidden">
                   <img src={thumb} className='object-cover w-full h-full' />
                 </div>
 
-                {/* info video */}
                 <div className="flex items-start justify-between px-5.5 py-4">
                   <div className="text-start font-Montserrat">
                     <h1 className='font-bold text-sm text-black'>Penilaian Praktik 2</h1>
@@ -103,44 +101,42 @@ const Profile = () => {
               </button>
 
               <button className="w-full rounded-2xl shadow-md">
-              {/* thumbnail */}
-              <div className="rounded-t-2xl h-36 overflow-hidden">
-                <img src={thumb} className='object-cover w-full h-full' />
-              </div>
-
-              {/* info video */}
-              <div className="flex items-start justify-between px-5.5 py-4">
-                <div className="text-start font-Montserrat">
-                  <h1 className='font-bold text-sm text-black'>Latihan Tugas</h1>
-                  <div className="flex justify-between text-nowrap text-[#A9A9A9] font-medium text-xs mt-1 gap-2">
-                    <div className="flex">
-                      <p>1,9 jt</p>
-                      <p>&nbsp;x ditonton</p>
-                    </div>
-
-                    <p>•</p>
-
-                    <div className="flex">
-                      <p>10</p>
-                      <p>&nbsp;Bulan yang lalu</p>
-                    </div>
-                  </div>
+                <div className="rounded-t-2xl h-36 overflow-hidden">
+                  <img src={thumb} className='object-cover w-full h-full' />
                 </div>
 
-                <button>
-                  <img src={ic_more} alt="" className='w-1' />
-                </button>
-              </div>
-            </button>
+                <div className="flex items-start justify-between px-5.5 py-4">
+                  <div className="text-start font-Montserrat">
+                    <h1 className='font-bold text-sm text-black'>Latihan Tugas</h1>
+                    <div className="flex justify-between text-nowrap text-[#A9A9A9] font-medium text-xs mt-1 gap-2">
+                      <div className="flex">
+                        <p>1,9 jt</p>
+                        <p>&nbsp;x ditonton</p>
+                      </div>
+
+                      <p>•</p>
+
+                      <div className="flex">
+                        <p>10</p>
+                        <p>&nbsp;Bulan yang lalu</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button>
+                    <img src={ic_more} alt="" className='w-1' />
+                  </button>
+                </div>
+              </button>
             </div>
           )}
 
-          {/* {isActive === "komentar" && (
+          {isActive === "komentar" && (
             <div className="h-40">
               <h1>Komentar</h1>
             </div>
-          )} */}
-        </div>
+          )}
+        </div> */}
 
       </div>
 

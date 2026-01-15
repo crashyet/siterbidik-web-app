@@ -20,6 +20,15 @@ import Learning from './Learning/Learning.jsx'
 import Simulasi from './Learning/Simulasi.jsx'
 import Latihan from './Learning/Latihan.jsx'
 import Evaluasi from './Learning/Evaluasi.jsx'
+import CapaianPembelajaran from './Main/Modul/CapaianPembelajaran.jsx'
+import Quiz from './Learning/Questions/Quiz.jsx'
+import BicaraExam from './Learning/Evaluasi/BicaraExam.jsx'
+import BicaraExamDetail from './Learning/Evaluasi/BicaraExamDetail.jsx'
+import BukuAjar from './Main/Modul/BukuAjar.jsx'
+import Panduan from './Main/Modul/Panduan.jsx'
+import Materi from './Main/Modul/Materi.jsx'
+import MateriFlipbook from './Main/Modul/MateriFlipbook.jsx'
+import MateriFlipbookTurnJS from './Main/Modul/MateriFlipbookTurnJS.jsx'
 
 import Video1 from './Learning/Videos/Video1.jsx'
 import VideoPlayer from './Learning/Videos/VideoPlayer.jsx'
@@ -52,8 +61,17 @@ function AppContent() {
         <Route path='/simulasi' element={<Simulasi />} />
         <Route path='/latihan' element={<Latihan />} />
         <Route path='/evaluasi' element={<Evaluasi />} />
+        <Route path='/capaian-pembelajaran' element={<CapaianPembelajaran />} />
         <Route path='/video1' element={<Video1 />} />
         <Route path='/video/:videoId' element={<VideoPlayer />} />
+        <Route path='/quiz/:quizId' element={<Quiz />} />
+        <Route path='/bicara-exam' element={<BicaraExam />} />
+        <Route path='/bicara-exam/:examId' element={<BicaraExamDetail />} />
+        <Route path='/buku-ajar' element={<BukuAjar />} />
+        <Route path='/panduan' element={<Panduan />} />
+        <Route path='/materi' element={<Materi />} />
+        <Route path='/materi/teks-negosiasi' element={<MateriFlipbook />} />
+        <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} />
       </Routes>
     </>
   )
