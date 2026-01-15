@@ -355,7 +355,7 @@ export default function VideoPlayer() {
 
         {/* Author Info */}
         <div className="flex items-center gap-3 mt-5">
-          <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+          <img src={videoData.author.avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
           <div>
             <p className="font-Montserrat font-semibold text-black text-xs">
               {videoData.author.name}

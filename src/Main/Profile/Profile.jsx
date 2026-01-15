@@ -7,7 +7,8 @@ import ic_chat from '../../assets/ic_chat.png'
 import ic_logout from '../../assets/ic_logout.png'
 import ic_edit from '../../assets/ic_pencil.png'
 import ic_more from '../../assets/ic_more.png'
-import profil from '../../assets/img_profil.jpeg'
+// import profil from '../../assets/img_profil.jpeg'
+import profil from '../../assets/profil.jpeg'
 import thumb from '../../assets/thumb.jpg'
 
 const Profile = () => {
@@ -41,9 +42,9 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col font-Montserrat text-black">
-              <h1 className='font-bold text-[13px]'>{user?.name || 'ADHITYA PUTRA'}</h1>
-              <h2 className='font-semibold text-[12px] opacity-25'>{user?.role || '-'}</h2>
-              <p className='text-[11px] opacity-25'>NISN: {user?.nisn || '-'}</p>
+              <h1 className='font-bold text-[13px]'>{user?.name || 'Pipit Dwi Komariah'}</h1>
+              <h2 className='font-semibold text-[12px] opacity-25'>{user?.role || 'Siswa'}</h2>
+              <p className='text-[11px] opacity-25'>NISN: {user?.nisn || '1234567890'}</p>
             </div>
           </div>
 

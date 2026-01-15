@@ -1,4 +1,5 @@
 // Centralized video data configuration
+import avatar from "../assets/profil.jpeg"
 export const videosData = [
   {
     id: 1,
@@ -10,7 +11,7 @@ export const videosData = [
     duration: "0:39",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null // atau path ke avatar jika ada
+      avatar: avatar // atau path ke avatar jika ada
     },
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fringilla libero a turpis viverra vehicula. Sed ac pellentesque ligula, ac pharetra justo. Donec ut erat vitae tortor accumsan convallis...",
     comments: [
@@ -33,7 +34,7 @@ export const videosData = [
     duration: "0:34",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Materi pembelajaran tentang pengajuan dalam berbicara...",
     comments: [],
@@ -49,7 +50,7 @@ export const videosData = [
     duration: "0:41",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pembelajaran tentang penawaran dalam keterampilan berbicara...",
     comments: [],
@@ -65,7 +66,7 @@ export const videosData = [
     duration: "0:31",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pembelajaran tentang persetujuan dalam keterampilan berbicara...",
     comments: [],
@@ -81,7 +82,7 @@ export const videosData = [
     duration: "0:28",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Belajar tentang intonasi yang baik dalam berbicara...",
     comments: [],
@@ -97,7 +98,7 @@ export const videosData = [
     duration: "0:22",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pentingnya orientasi dalam komunikasi verbal...",
     comments: [],
@@ -113,7 +114,7 @@ export const videosData = [
     duration: "0:27",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pembelajaran tentang pengajuan dalam keterampilan berbicara...",
     comments: [],
@@ -129,7 +130,7 @@ export const videosData = [
     duration: "0:41",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pembelajaran tentang penawaran dalam keterampilan berbicara...",
     comments: [],
@@ -145,7 +146,7 @@ export const videosData = [
     duration: "0:22",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pembelajaran tentang persetujuan dalam keterampilan berbicara...",
     comments: [],
@@ -161,7 +162,7 @@ export const videosData = [
     duration: "0:25",
     author: {
       name: "Pipit Dwi Komariah",
-      avatar: null
+      avatar: avatar
     },
     description: "Pembelajaran tentang penutup dalam keterampilan berbicara...",
     comments: [],

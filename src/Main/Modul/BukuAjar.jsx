@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import file from '../../assets/ic_file.png'
+import PDFViewer from '../../components/PDFViewer'
 
 const BukuAjar = () => {
   const navigate = useNavigate()
@@ -78,12 +79,10 @@ const BukuAjar = () => {
           </div>
 
           {/* PDF Viewer */}
-          <div className="flex-1 overflow-hidden">
-            <iframe
-              src="/document/BukuAjar.pdf"
-              className="w-full h-full"
-              title="Buku Ajar Fullscreen"
-            />
+          <div className="flex-1 overflow-y-auto w-full bg-gray-100 flex justify-center">
+             <div className="w-full max-w-4xl py-4">
+                 <PDFViewer file="/document/BukuAjar.pdf" />
+             </div>
           </div>
         </div>
       )}

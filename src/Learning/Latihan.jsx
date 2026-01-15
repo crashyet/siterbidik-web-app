@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Banner from '../assets/banner-latihan.png'
+import profil from '../assets/profil.jpeg'
 
 const Latihan = () => {
   const navigate = useNavigate()
@@ -45,7 +46,10 @@ const Latihan = () => {
             </div>
 
             <div className="bg-white flex items-center gap-4 p-2.5 rounded-2xl">
-              <div className="w-12.5 h-12.5 rounded-full bg-stroke flex-shrink-0"></div>
+              {/* <div className="w-12.5 h-12.5 rounded-full bg-stroke flex-shrink-0"></div> */}
+              <div className="bg-purple-secondary h-16 w-16 p-1 rounded-full relative overflow-hidden">
+                <img src={profil} alt="" className='object-cover w-full h-full rounded-full' />
+              </div>
               <div className="">
                 <h1 className='font-Montserrat font-bold text-black text-xs'>Pipit Dwi Komariah</h1>
                 <div className="flex items-center gap-2 mt-2">

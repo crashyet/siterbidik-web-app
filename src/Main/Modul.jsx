@@ -13,8 +13,8 @@ const Modul = () => {
         <div className="grid grid-cols-2 gap-6 mt-10">
           <button onClick={() => navigate('/capaian-pembelajaran')}>
             <div className="bg-light-purple pl-10 pr-7 pt-12 pb-8 rounded-2xl relative">
-              <div className="absolute bg-white text-purple-main top-0 left-0 w-24 py-1.5 rounded-br-2xl font-Montserrat font-bold text-sm">
-                CP
+              <div className="absolute bg-white text-purple-main top-0 left-0 w-24 py-1.5 rounded-br-2xl font-Montserrat font-bold text-[10px] leading-3">
+                Capaian Pembelajaran
               </div>
               <img src={book} alt="" className='h-12'/>
             </div>

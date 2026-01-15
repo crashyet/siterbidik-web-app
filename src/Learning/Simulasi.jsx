@@ -102,7 +102,7 @@ const Simulasi = () => {
             {/* Video Info */}
             <div className="px-4 py-2.5 flex gap-3">
               {/* Avatar */}
-              <div className="w-10 h-10 rounded-full bg-stroke flex-shrink-0"></div>
+              <img src={video.author.avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
               
               {/* Text Info */}
               <div className="flex-1 py-1">

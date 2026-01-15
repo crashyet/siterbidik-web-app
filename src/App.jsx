@@ -28,7 +28,7 @@ import BukuAjar from './Main/Modul/BukuAjar.jsx'
 import Panduan from './Main/Modul/Panduan.jsx'
 import Materi from './Main/Modul/Materi.jsx'
 import MateriFlipbook from './Main/Modul/MateriFlipbook.jsx'
-import MateriFlipbookTurnJS from './Main/Modul/MateriFlipbookTurnJS.jsx'
+// import MateriFlipbookTurnJS from './Main/Modul/MateriFlipbookTurnJS.jsx'
 
 import Video1 from './Learning/Videos/Video1.jsx'
 import VideoPlayer from './Learning/Videos/VideoPlayer.jsx'
@@ -71,7 +71,7 @@ function AppContent() {
         <Route path='/panduan' element={<Panduan />} />
         <Route path='/materi' element={<Materi />} />
         <Route path='/materi/teks-negosiasi' element={<MateriFlipbook />} />
-        <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} />
+        {/* <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} /> */}
       </Routes>
     </>
   )
