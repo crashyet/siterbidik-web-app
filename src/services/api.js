@@ -1,5 +1,5 @@
 // Base API Configuration
-const API_BASE_URL = 'https://api-siterbidik.eyi.my.id/api'
+const API_BASE_URL = 'http://api-siterbidik.eyi.my.id/api'
 
 /**
  * Generic API request handler with error handling
