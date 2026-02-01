@@ -1,18 +1,41 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getVideoById } from "../../data/videosData";
+import { videoAPI } from "../../services/api";
+import profil from '../../assets/tl.webp'
 
 export default function VideoPlayer() {
   const navigate = useNavigate();
   const { videoId } = useParams(); // Get video ID from URL
-  const videoData = getVideoById(videoId);
+  const [videoData, setVideoData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Redirect if video not found
+  // Load video data from API
   useEffect(() => {
-    if (!videoData) {
-      navigate('/simulasi');
+    const loadVideo = async () => {
+      try {
+        setLoading(true);
+        const response = await videoAPI.getVideoById(videoId);
+        setVideoData(response.data);
+        
+        // Increment view count
+        await videoAPI.incrementView(videoId);
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error loading video:', err);
+        setError('Video tidak ditemukan');
+        // Redirect to simulasi after 2 seconds
+        setTimeout(() => navigate('/simulasi'), 2000);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (videoId) {
+      loadVideo();
     }
-  }, [videoData, navigate]);
+  }, [videoId, navigate]);
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,16 +50,22 @@ export default function VideoPlayer() {
   const hideControlsTimeoutRef = useRef(null);
   const playerContainerRef = useRef(null);
 
-  // Auto-play when component mounts
+  // Auto-play when video is loaded and ready
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(err => {
-        console.log("Auto-play prevented:", err);
-      });
+    if (!loading && videoRef.current && videoData) {
+      // Small delay to ensure browser is ready
+      const timer = setTimeout(() => {
+        videoRef.current.play().then(() => {
+          setIsPlaying(true);
+          setHasEnded(false);
+        }).catch(err => {
+          console.log("Auto-play prevented (needs user interaction):", err);
+          // Fallback: stay paused, user will click play
+        });
+      }, 150);
+      return () => clearTimeout(timer);
     }
-  }, []);
+  }, [loading, videoData]);
 
   // Auto-hide controls when playing
   useEffect(() => {
@@ -145,7 +174,27 @@ export default function VideoPlayer() {
     }
   };
 
-  if (!videoData) return null;
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <svg className="animate-spin h-12 w-12 text-purple-main" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+        </svg>
+      </div>
+    );
+  }
+
+  if (error || !videoData) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="font-Montserrat text-red-500 mb-4">{error || 'Video tidak ditemukan'}</p>
+          <p className="font-Montserrat text-gray-500 text-sm">Mengalihkan ke halaman simulasi...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -154,17 +203,19 @@ export default function VideoPlayer() {
         {/* VIDEO */}
         <video
           ref={videoRef}
-          src={videoData.videoUrl}
+          src={videoData.video_full_url}
           className="w-full aspect-video"
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
           onEnded={handleVideoEnded}
           onClick={handleVideoClick}
+          autoPlay
+          playsInline
         />
 
         {/* CLOSE BUTTON */}
         <button 
-          onClick={() => navigate(videoData.backRoute)}
+          onClick={() => navigate('/simulasi')}
           className="absolute -top-1 -left-1 bg-purple-main text-white rounded-br-2xl p-2.5 w-11.5 h-9 flex items-center justify-center"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -350,64 +401,39 @@ export default function VideoPlayer() {
           {videoData.title}
         </h2>
         <p className="font-Montserrat text-gray-600 text-xs mt-1">
-          {videoData.views} x ditonton • {videoData.uploadDate}
+          {videoData.views} x ditonton • {videoData.upload_date}
         </p>
 
         {/* Author Info */}
         <div className="flex items-center gap-3 mt-5">
-          <img src={videoData.author.avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
+          <img src={videoData.author?.avatar || profil} alt="Avatar" className="w-10 h-10 rounded-full" />
           <div>
             <p className="font-Montserrat font-semibold text-black text-xs">
-              {videoData.author.name}
+              {videoData.author?.name || 'Unknown'}
             </p>
           </div>
         </div>
 
         {/* Description Box */}
-        <div className="mt-4 bg-stroke rounded-2xl px-6 py-4">
-          <h3 className="font-Montserrat font-bold text-black text-xs mb-2">
-            Deskripsi
-          </h3>
-          <p className="font-Montserrat text-gray-700 text-xs">
-            {videoData.description} <span className="font-Montserrat font-semibold text-black text-xs">Selengkapnya</span>
-          </p>
-        </div>
+        {videoData.description && (
+          <div className="mt-4 bg-stroke rounded-2xl px-6 py-4">
+            <h3 className="font-Montserrat font-bold text-black text-xs mb-2">
+              Deskripsi
+            </h3>
+            <p className="font-Montserrat text-gray-700 text-xs">
+              {videoData.description}
+            </p>
+          </div>
+        )}
 
-        {/* Comments Section */}
+        {/* Comments Section - Coming Soon */}
         <div className="mt-6">
           <h3 className="font-Montserrat font-bold text-black text-base mb-4">
-            {videoData.comments.length} Komentar
+            Komentar
           </h3>
-
-          {/* Add Comment Input */}
-          <div className="flex items-start gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
-            <input
-              type="text"
-              placeholder="Tambahkan Komentar..."
-              className="flex-1 font-Montserrat text-sm text-gray-500 border-b border-gray-300 pb-2 outline-none focus:border-purple-main"
-            />
-          </div>
-
-          {/* Comments List */}
-          {videoData.comments.map(comment => (
-            <div key={comment.id} className="flex items-start gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="font-Montserrat font-semibold text-black text-sm">
-                    {comment.username}
-                  </p>
-                  <span className="font-Montserrat text-gray-500 text-xs">
-                    {comment.date}
-                  </span>
-                </div>
-                <p className="font-Montserrat text-gray-700 text-xs mt-1 leading-relaxed">
-                  {comment.text}
-                </p>
-              </div>
-            </div>
-          ))}
+          <p className="font-Montserrat text-gray-500 text-sm text-center py-4">
+            Fitur komentar akan segera hadir
+          </p>
         </div>
       </div>
     </div>

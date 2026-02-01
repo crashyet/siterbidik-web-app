@@ -31,3 +31,7 @@ QUICK_START.md
 
 public/video/*
 src/Main/Modul/MateriFlipbookTurnJS.jsx
+
+src/data/insert-users-only.sql
+src/data/siswa.json
+src/data/UserSeeder.php

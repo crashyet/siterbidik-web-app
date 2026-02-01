@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { authAPI } from '../../services/api'
 import LogoutModal from '../../components/LogoutModal'
 
 import ic_chat from '../../assets/ic_chat.png'
@@ -8,7 +9,7 @@ import ic_logout from '../../assets/ic_logout.png'
 import ic_edit from '../../assets/ic_pencil.png'
 import ic_more from '../../assets/ic_more.png'
 // import profil from '../../assets/img_profil.jpeg'
-import profil from '../../assets/profil.jpeg'
+import profil from '../../assets/tl.webp'
 import thumb from '../../assets/thumb.jpg'
 
 const Profile = () => {
@@ -16,6 +17,39 @@ const Profile = () => {
   const { user, logout } = useAuth()
   const [isActive, setIsActive] = useState("video")
   const [showLogoutModal, setShowLogoutModal] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [profileData, setProfileData] = useState(null)
+
+  // Load user data on mount
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        setLoading(true)
+        
+        // Try to get fresh data from API
+        const response = await authAPI.getProfile()
+        const userData = response.data || response.user || response
+        
+        // Set profile data
+        setProfileData(userData)
+        
+      } catch (err) {
+        console.error('Error loading profile:', err)
+        
+        // Fallback to user from context if API fails
+        if (user) {
+          setProfileData(user)
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadUserData()
+  }, [user])
+
+  // Use profileData if available, otherwise fallback to context user
+  const displayUser = profileData || user
 
   const handleLogoutClick = () => {
     setShowLogoutModal(true)
@@ -33,20 +67,29 @@ const Profile = () => {
 
   return (
     <section className='relative' id='profile'>
-      <div className="w-[90%] mx-auto">
-        <div className="flex items-center justify-between mt-10 p-5 border-1 border-purple-secondary rounded-3xl">
-
-          <div className="flex gap-4 items-center">
-            <div className="bg-purple-secondary h-16 w-16 p-1 rounded-full relative overflow-hidden">
-              <img src={profil} alt="" className='object-cover w-full h-full rounded-full' />
-            </div>
-
-            <div className="flex flex-col font-Montserrat text-black">
-              <h1 className='font-bold text-[13px]'>{user?.name || 'Pipit Dwi Komariah'}</h1>
-              <h2 className='font-semibold text-[12px] opacity-25'>{user?.role || 'Siswa'}</h2>
-              <p className='text-[11px] opacity-25'>NISN: {user?.nisn || '1234567890'}</p>
-            </div>
+      {/* Loading State */}
+      {loading ? (
+        <div className="w-full min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-main border-t-transparent"></div>
+            <p className="mt-4 text-gray-600 font-Montserrat">Memuat profil...</p>
           </div>
+        </div>
+      ) : (
+        <div className="w-[90%] mx-auto">
+          <div className="flex items-center justify-between mt-10 p-5 border-1 border-purple-secondary rounded-3xl">
+
+            <div className="flex gap-4 items-center">
+              <div className="bg-purple-secondary h-16 w-16 p-1 rounded-full relative overflow-hidden">
+                <img src={displayUser?.photo_url || profil} alt="" className='object-cover w-full h-full rounded-full' />
+              </div>
+
+              <div className="flex flex-col gap-0.5 font-Montserrat text-black">
+                <h1 className='font-bold text-sm'>{displayUser?.name || 'Memuat...'}</h1>
+                <h2 className='font-semibold text-xs opacity-50'>{displayUser?.role || ''}</h2>
+                <p className='text-xs opacity-50'>{displayUser?.role === 'siswa' ? `NISN: ${displayUser?.nisn}` : `Email: ${displayUser?.email || 'undefined'}`}</p>
+              </div>
+            </div>
 
           <button onClick={() => navigate('/profile/edit')} className="">
             <img src={ic_edit} alt="" className='w-8' />
@@ -139,7 +182,8 @@ const Profile = () => {
           )}
         </div> */}
 
-      </div>
+        </div>
+      )}
 
       {/* Logout Modal */}
       <LogoutModal 

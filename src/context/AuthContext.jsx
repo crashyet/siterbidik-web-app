@@ -20,15 +20,34 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('authToken')
+      const storedUserData = localStorage.getItem('userData')
       
       if (token) {
+        // Immediately set user from localStorage for faster UI rendering
+        if (storedUserData) {
+          try {
+            const parsedUser = JSON.parse(storedUserData)
+            setUser(parsedUser)
+            setIsAuthenticated(true)
+          } catch (e) {
+            console.error('Error parsing stored user data:', e)
+          }
+        }
+        
         try {
-          // Verify token by fetching user profile
+          // Verify token and get fresh data from API in background
           const response = await authAPI.getProfile()
-          setUser(response.data || response.user)
+          const freshUserData = response.data || response.user
+          
+          // Update with fresh data from API
+          setUser(freshUserData)
           setIsAuthenticated(true)
+          
+          // Update localStorage with fresh data
+          localStorage.setItem('userData', JSON.stringify(freshUserData))
         } catch (error) {
           // Token is invalid or expired
+          console.error('Auth verification failed:', error)
           localStorage.removeItem('authToken')
           localStorage.removeItem('userData')
           setUser(null)

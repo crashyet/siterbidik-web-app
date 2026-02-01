@@ -6,16 +6,12 @@ import { AuthProvider } from './context/AuthContext'
 import Splash from './Auth/Splash/Splash1.jsx'
 import Splash2 from './Auth/Splash/Splash2.jsx'
 import Login from './Auth/Login.jsx'
-
 import Home from './Main/Home.jsx'
 import Modul from './Main/Modul.jsx'
 import Profile from './Main/Profile/Profile.jsx'
-
 import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
-
 import EditProfile from './Main/Profile/EditProfile.jsx'
-
 import Learning from './Learning/Learning.jsx'
 import Simulasi from './Learning/Simulasi.jsx'
 import Latihan from './Learning/Latihan.jsx'
@@ -31,9 +27,9 @@ import Panduan from './Main/Modul/Panduan.jsx'
 import Materi from './Main/Modul/Materi.jsx'
 import MateriFlipbook from './Main/Modul/MateriFlipbook.jsx'
 // import MateriFlipbookTurnJS from './Main/Modul/MateriFlipbookTurnJS.jsx'
-
 import Video1 from './Learning/Videos/Video1.jsx'
 import VideoPlayer from './Learning/Videos/VideoPlayer.jsx'
+import UploadVideo from './Learning/Videos/UploadVideo.jsx'
 
 function AppContent() {
   const location = useLocation()
@@ -75,6 +71,7 @@ function AppContent() {
         <Route path='/materi/teks-negosiasi' element={<MateriFlipbook />} />
         <Route path='/tugas-akhir' element={<TugasAkhir />} />
         <Route path='/tugas-akhir/detail' element={<TugasAkhirDetail />} />
+        <Route path='/upload-video' element={<UploadVideo />} />
         {/* <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} /> */}
       </Routes>
     </>

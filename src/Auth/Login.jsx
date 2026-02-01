@@ -10,7 +10,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [formData, setFormData] = useState({
-    nisn: '',
+    login: '',
     password: ''
   })
 
@@ -21,19 +21,19 @@ const Login = () => {
     if (error) setError('')
     
     // Validasi NISN hanya angka
-    if (name === 'nisn') {
-      // Hanya izinkan angka
-      const numericValue = value.replace(/\D/g, '')
-      setFormData({
-        ...formData,
-        [name]: numericValue
-      })
-    } else {
+    // if (name === 'nisn') {
+    //   // Hanya izinkan angka
+    //   const numericValue = value.replace(/\D/g, '')
+    //   setFormData({
+    //     ...formData,
+    //     [name]: numericValue
+    //   })
+    // } else {
       setFormData({
         ...formData,
         [name]: value
       })
-    }
+    // }
   }
 
   const handleSubmit = async (e) => {
@@ -42,14 +42,14 @@ const Login = () => {
     setLoading(true)
 
     try {
-      const result = await login(formData.nisn, formData.password)
+      const result = await login(formData.login, formData.password)
       
       if (result.success) {
         // Login berhasil, redirect ke home
         navigate('/home')
       } else {
         // Login gagal, tampilkan error
-        setError(result.error || 'NISN atau password salah')
+        setError(result.error || 'NISN/Email atau password salah')
       }
     } catch (err) {
       setError('Terjadi kesalahan. Silakan coba lagi.')
@@ -76,22 +76,19 @@ const Login = () => {
           <h2 className='font-Montserrat font-bold text-Text text-xl mb-6 text-center'>Masuk</h2>
           
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {/* NISN Input */}
+            {/* Login Input (NISN or Email) */}
             <div className="flex flex-col gap-2">
-              <label htmlFor="nisn" className='font-Montserrat font-semibold text-Text text-sm'>
-                NISN
+              <label htmlFor="login" className='font-Montserrat font-semibold text-Text text-sm'>
+                NISN / Email
               </label>
               <input
                 type="text"
-                id="nisn"
-                name="nisn"
-                value={formData.nisn}
+                id="login"
+                name="login"
+                value={formData.login}
                 onChange={handleChange}
-                placeholder="Masukkan NISN Anda"
-                pattern="[0-9]*"
-                inputMode="numeric"
+                placeholder="Masukkan NISN atau Email"
                 required
-                maxLength="10"
                 className='w-full px-4 py-3 border-2 border-stroke rounded-xl font-Montserrat text-sm focus:outline-none focus:border-purple-main transition-colors'
               />
             </div>

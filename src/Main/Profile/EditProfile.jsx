@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { authAPI } from '../../services/api'
-import profil from '../../assets/img_profil.jpeg'
+import profil from '../../assets/tl.webp'
 
 const EditProfile = () => {
   const navigate = useNavigate()
@@ -23,6 +23,8 @@ const EditProfile = () => {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [originalData, setOriginalData] = useState({}) // Store original data to compare changes
+  const [profileImage, setProfileImage] = useState(profil) // Profile image preview
+  const [selectedFile, setSelectedFile] = useState(null) // Selected file object
 
   // Load user data on mount
   useEffect(() => {
@@ -46,6 +48,11 @@ const EditProfile = () => {
           ...userDataObj,
           password: '',
         })
+        
+        // Set profile image from API if available
+        if (userData.photo_url) {
+          setProfileImage(userData.photo_url)
+        }
         
         // Store original data for comparison
         setOriginalData(userDataObj)
@@ -99,6 +106,41 @@ const EditProfile = () => {
       }
     }
 
+  // Handle image file selection
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    
+    if (file) {
+      // Validate file type
+      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
+      if (!validTypes.includes(file.type)) {
+        setError('Format file tidak didukung. Gunakan JPG, PNG, GIF, atau WebP.')
+        return
+      }
+      
+      // Validate file size (max 5MB)
+      const maxSize = 5 * 1024 * 1024 // 5MB in bytes
+      if (file.size > maxSize) {
+        setError('Ukuran file terlalu besar. Maksimal 5MB.')
+        return
+      }
+      
+      // Create preview URL
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setProfileImage(reader.result)
+      }
+      reader.readAsDataURL(file)
+      
+      // Store the file for upload
+      setSelectedFile(file)
+      
+      // Clear any previous errors
+      setError('')
+    }
+  }
+
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -130,20 +172,41 @@ const EditProfile = () => {
         dataToSend.password = formData.password
       }
 
-      // Check if there are any changes
-      if (Object.keys(dataToSend).length === 0) {
+      // Check if there are any changes (including image)
+      if (Object.keys(dataToSend).length === 0 && !selectedFile) {
         setError('Tidak ada perubahan yang perlu disimpan.')
         setSaving(false)
         return
       }
 
+      // Prepare request data - use FormData if image is selected
+      let requestData
+      if (selectedFile) {
+        requestData = new FormData()
+        
+        // Add all changed fields to FormData
+        Object.keys(dataToSend).forEach(key => {
+          requestData.append(key, dataToSend[key])
+        })
+        
+        // Add profile image
+        requestData.append('photo', selectedFile)
+      } else {
+        requestData = dataToSend
+      }
+
       // Call API
-      const response = await authAPI.completeProfile(dataToSend)
+      const response = await authAPI.completeProfile(requestData)
       
       // Update user context with new data
       const updatedUser = response.data || response.user || response
       if (updatedUser) {
         updateUser(updatedUser)
+        
+        // Update profile image with new photo from server
+        if (updatedUser.photo_url) {
+          setProfileImage(updatedUser.photo_url)
+        }
       }
 
       // Show success message
@@ -156,8 +219,9 @@ const EditProfile = () => {
         phone: formData.phone,
       })
       
-      // Clear password field
+      // Clear password field and selected file
       setFormData(prev => ({ ...prev, password: '' }))
+      setSelectedFile(null)
 
       // Redirect after 1.5 seconds
       setTimeout(() => {
@@ -227,10 +291,27 @@ const EditProfile = () => {
       <form onSubmit={handleSubmit} className="border border-[#A9A9A9] w-full rounded-3xl p-6 shadow-xl flex flex-col items-center justify-center">
         <h2 className='font-Montserrat font-bold text-purple-main text-xl mb-7 text-center'>Edit Profil</h2>
         
-        {/* Profile Image */}
-        <div className="w-20 h-20 rounded-full mb-6 overflow-hidden bg-purple-secondary">
-          <img src={profil} alt="Profile" className='w-full h-full object-cover' />
+        {/* Profile Image - Clickable to upload */}
+        <div className="relative w-20 h-20 rounded-full mb-6 overflow-hidden bg-purple-secondary group cursor-pointer" onClick={() => document.getElementById('profileImageInput').click()}>
+          <img src={profileImage} alt="Profile" className='w-full h-full object-cover' />
+          
+          {/* Overlay on hover */}
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z" fill="white"/>
+              <path d="M20 6H16.83L15 4H9L7.17 6H4C2.9 6 2 6.9 2 8V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="white"/>
+            </svg>
+          </div>
         </div>
+        
+        {/* Hidden file input */}
+        <input 
+          type="file" 
+          id="profileImageInput" 
+          accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+          onChange={handleImageChange}
+          className="hidden"
+        />
 
         {/* Success Message */}
         {success && (
@@ -275,7 +356,7 @@ const EditProfile = () => {
             name="email" 
             value={formData.email} 
             onChange={handleChange}
-            required
+            placeholder="email@mail.com"
             className='w-full font-Montserrat text-base font-medium focus:outline-none transition-colors' 
           />
         </div>

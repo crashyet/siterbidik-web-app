@@ -9,7 +9,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket A – Fokus Orientasi (Pembukaan)',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Anda adalah staf hotel yang akan bertemu event organizer untuk pertama kali.',
     task: 'Praktikkan kalimat pembukaan (orientasi) yang sopan dan profesional.'
   },
@@ -20,7 +20,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket A – Fokus Orientasi (Pembukaan)',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Anda sebagai petugas bank akan berbicara dengan nasabah yang menunggak setoran.',
     task: 'Praktikkan pembukaan percakapan yang menunjukkan empati.'
   },
@@ -31,7 +31,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket B – Fokus Pengajuan',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Anda adalah guru pembimbing SMK yang ingin mengajukan permohonan tempat PKL di biro perjalanan wisata.',
     task: 'Praktikkan kalimat pengajuan permohonan PKL secara singkat dan jelas.'
   },
@@ -42,7 +42,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket B – Fokus Pengajuan',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Anda mewakili sekolah yang ingin mengadakan pelatihan table manner di hotel.',
     task: 'Praktikkan kalimat pengajuan kerja sama.'
   },
@@ -53,7 +53,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket C – Fokus Penawaran',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Anda adalah pihak hotel. Event organizer merasa harga ballroom terlalu mahal.',
     task: 'Praktikkan kalimat penawaran alternatif (misalnya penyesuaian harga atau fasilitas).'
   },
@@ -64,7 +64,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket C – Fokus Penawaran',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Anda adalah petugas bank. Nasabah meminta keringanan karena usahanya menurun.',
     task: 'Praktikkan kalimat penawaran solusi.'
   },
@@ -75,7 +75,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket D – Fokus Persetujuan',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Sebagai manajer biro perjalanan, Anda setuju menerima enam siswa PKL dari SMK.',
     task: 'Praktikkan kalimat persetujuan secara profesional.'
   },
@@ -86,7 +86,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket D – Fokus Persetujuan',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Sebagai pihak sekolah, Anda menyetujui biaya pelatihan table manner yang ditawarkan hotel.',
     task: 'Praktikkan kalimat persetujuan.'
   },
@@ -97,7 +97,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket E – Fokus Penutup',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Negosiasi kerja sama hotel dan event organizer telah mencapai kesepakatan.',
     task: 'Praktikkan kalimat penutup yang sopan dan profesional.'
   },
@@ -108,7 +108,7 @@ export const examData = {
     date: '28 Februari 2025',
     points: 100,
     category: 'Paket E – Fokus Penutup',
-    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
+    generalInstruction: 'Bacalah situasi berikut. Praktikkan secara lisan bagian negosiasi yang diminta selama 30–60 detik dalam bentuk rekaman suara. Gunakan bahasa Indonesia yang santun dan sesuai konteks dunia kerja.',
     situation: 'Sebagai petugas bank, Anda telah mencapai kesepakatan penjadwalan ulang setoran dengan nasabah.',
     task: 'Praktikkan penutup percakapan yang suportif.'
   }

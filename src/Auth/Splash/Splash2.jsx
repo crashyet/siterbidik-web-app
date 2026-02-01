@@ -14,7 +14,7 @@ const Splash2 = () => {
     {
       image: splash1,
       title: 'Selamat Datang',
-      description: 'Daftarkan dirimu terlebih dahulu'
+      description: 'Aplikasi Pembelajaran Bahasa Indonesia untuk Siswa Jenjang SMK Kelas X'
     },
     {
       image: splash2,
@@ -73,7 +73,7 @@ const Splash2 = () => {
 
   return (
     <section 
-      className='flex flex-col items-center justify-between h-screen py-12 px-6'
+      className='flex flex-col items-center justify-between h-screen pt-12 pb-4 px-6'
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -112,36 +112,42 @@ const Splash2 = () => {
       </div>
 
       {/* Navigation Dots and Next Button */}
-      <div className="flex flex-col items-center gap-8 w-full">
-        {/* Dots Indicator */}
-        <div className="flex items-center justify-center gap-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className="transition-all duration-300"
-              aria-label={`Go to slide ${index + 1}`}
-            >
-              {index === currentSlide ? (
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="5" cy="5" r="5" fill="#9747FF"/>
-                </svg>
-              ) : (
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="5" cy="5" r="4.5" fill="#F1F1F1" stroke="#A9A9A9"/>
-                </svg>
-              )}
-            </button>
-          ))}
+      <div className="flex flex-col items-center w-full gap-4">
+        <div className="flex flex-col items-center gap-8 w-full">
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-center gap-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className="transition-all duration-300"
+                aria-label={`Go to slide ${index + 1}`}
+              >
+                {index === currentSlide ? (
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="5" cy="5" r="5" fill="#9747FF"/>
+                  </svg>
+                ) : (
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="5" cy="5" r="4.5" fill="#F1F1F1" stroke="#A9A9A9"/>
+                  </svg>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Next/Get Started Button */}
+          <button
+            onClick={handleNext}
+            className="w-full max-w-xs bg-purple-main text-white py-3 px-6 rounded-full font-Montserrat font-bold text-sm hover:bg-purple-700 transition-colors shadow-lg"
+          >
+            {currentSlide === slides.length - 1 ? 'Mulai Sekarang' : 'Selanjutnya'}
+          </button>
         </div>
 
-        {/* Next/Get Started Button */}
-        <button
-          onClick={handleNext}
-          className="w-full max-w-xs bg-purple-main text-white py-3 px-6 rounded-full font-Montserrat font-bold text-sm hover:bg-purple-700 transition-colors shadow-lg"
-        >
-          {currentSlide === slides.length - 1 ? 'Mulai Sekarang' : 'Selanjutnya'}
-        </button>
+        <p className='font-Montserrat text-xs font-medium text-center text-gray-500'>
+          Dikembangkan oleh Pipit Dwi Komariah
+        </p>
       </div>
     </section>
   )
