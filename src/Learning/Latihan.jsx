@@ -1,10 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Banner from '../assets/banner-latihan.png'
-import profil from '../assets/profil.jpeg'
+import profil from '../assets/tl.webp'
+import { useAuth } from '../context/AuthContext'
+import { authAPI } from '../services/api'
 
 const Latihan = () => {
   const navigate = useNavigate()
+  const { user } = useAuth()
+  const [profileData, setProfileData] = useState(null)
+
+  // Load user data on mount
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        
+        // Try to get fresh data from API
+        const response = await authAPI.getProfile()
+        const userData = response.data || response.user || response
+        
+        // Set profile data
+        setProfileData(userData)
+        
+      } catch (err) {
+        console.error('Error loading profile:', err)
+        
+        // Fallback to user from context if API fails
+        if (user) {
+          setProfileData(user)
+        }
+      }
+    }
+
+    loadUserData()
+  }, [user])
+
+  const displayUser = profileData || user
 
   return (
     <section className="relative bg-purple-main min-h-screen">
@@ -48,10 +79,10 @@ const Latihan = () => {
             <div className="bg-white flex items-center gap-4 p-2.5 rounded-2xl">
               {/* <div className="w-12.5 h-12.5 rounded-full bg-stroke flex-shrink-0"></div> */}
               <div className="bg-purple-secondary h-16 w-16 p-1 rounded-full relative overflow-hidden">
-                <img src={profil} alt="" className='object-cover w-full h-full rounded-full' />
+                <img src={displayUser?.avatar || profil} alt="" className='object-cover w-full h-full rounded-full' />
               </div>
               <div className="">
-                <h1 className='font-Montserrat font-bold text-black text-xs'>Pipit Dwi Komariah</h1>
+                <h1 className='font-Montserrat font-bold text-black text-xs'>{displayUser?.name}</h1>
                 <div className="flex items-center gap-2 mt-2">
                   <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 0C7.7615 0 10 2.2385 10 5C10 7.7615 7.7615 10 5 10C2.2385 10 0 7.7615 0 5C0 2.2385 2.2385 0 5 0ZM5 2C4.86739 2 4.74021 2.05268 4.64645 2.14645C4.55268 2.24021 4.5 2.36739 4.5 2.5V5C4.50003 5.1326 4.55273 5.25975 4.6465 5.3535L6.1465 6.8535C6.2408 6.94458 6.3671 6.99498 6.4982 6.99384C6.6293 6.9927 6.75471 6.94011 6.84741 6.84741C6.94011 6.75471 6.9927 6.6293 6.99384 6.4982C6.99498 6.3671 6.94458 6.2408 6.8535 6.1465L5.5 4.793V2.5C5.5 2.36739 5.44732 2.24021 5.35355 2.14645C5.25979 2.05268 5.13261 2 5 2Z" fill="black"/>

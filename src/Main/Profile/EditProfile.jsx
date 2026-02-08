@@ -291,8 +291,8 @@ const EditProfile = () => {
       <form onSubmit={handleSubmit} className="border border-[#A9A9A9] w-full rounded-3xl p-6 shadow-xl flex flex-col items-center justify-center">
         <h2 className='font-Montserrat font-bold text-purple-main text-xl mb-7 text-center'>Edit Profil</h2>
         
-        {/* Profile Image - Clickable to upload */}
-        <div className="relative w-20 h-20 rounded-full mb-6 overflow-hidden bg-purple-secondary group cursor-pointer" onClick={() => document.getElementById('profileImageInput').click()}>
+        {/* Profile Image - Using label for native file input trigger (better WebView support) */}
+        <label htmlFor="profileImageInput" className="relative w-20 h-20 rounded-full mb-6 overflow-hidden bg-purple-secondary group cursor-pointer block">
           <img src={profileImage} alt="Profile" className='w-full h-full object-cover' />
           
           {/* Overlay on hover */}
@@ -302,16 +302,17 @@ const EditProfile = () => {
               <path d="M20 6H16.83L15 4H9L7.17 6H4C2.9 6 2 6.9 2 8V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="white"/>
             </svg>
           </div>
-        </div>
-        
-        {/* Hidden file input */}
-        <input 
-          type="file" 
-          id="profileImageInput" 
-          accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-          onChange={handleImageChange}
-          className="hidden"
-        />
+          
+          {/* File input inside label for native browser/webview support */}
+          <input 
+            type="file" 
+            id="profileImageInput" 
+            accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+            onChange={handleImageChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            style={{ fontSize: '0' }}
+          />
+        </label>
 
         {/* Success Message */}
         {success && (
