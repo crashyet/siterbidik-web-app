@@ -29,7 +29,7 @@ const Splash = () => {
 
     // Redirect ke /home setelah logo kedua selesai ditampilkan (2 detik)
     const timer4 = setTimeout(() => {
-      navigate('/splash2')
+      navigate('/v2')
     }, 6300)
 
     // Cleanup timers

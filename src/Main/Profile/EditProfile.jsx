@@ -110,10 +110,23 @@ const EditProfile = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0]
     
+    // Debug logging
+    console.log('=== FILE SELECTED ===')
+    console.log('File object:', file)
+    console.log('File name:', file?.name)
+    console.log('File type:', file?.type)
+    console.log('File size:', file?.size)
+    
     if (file) {
-      // Validate file type
+      // Validate file type - also check by extension for WebView compatibility
       const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
-      if (!validTypes.includes(file.type)) {
+      const fileName = file.name?.toLowerCase() || ''
+      const validExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
+      const hasValidExtension = validExtensions.some(ext => fileName.endsWith(ext))
+      
+      // Accept if either MIME type or extension is valid (WebView sometimes has empty MIME type)
+      if (!validTypes.includes(file.type) && !hasValidExtension) {
+        console.log('Invalid file type:', file.type, 'and extension check failed')
         setError('Format file tidak didukung. Gunakan JPG, PNG, GIF, atau WebP.')
         return
       }
@@ -128,12 +141,18 @@ const EditProfile = () => {
       // Create preview URL
       const reader = new FileReader()
       reader.onloadend = () => {
+        console.log('File read successfully, preview created')
         setProfileImage(reader.result)
+      }
+      reader.onerror = (error) => {
+        console.error('Error reading file:', error)
+        setError('Gagal membaca file gambar.')
       }
       reader.readAsDataURL(file)
       
       // Store the file for upload
       setSelectedFile(file)
+      console.log('File stored for upload')
       
       // Clear any previous errors
       setError('')
@@ -191,12 +210,26 @@ const EditProfile = () => {
         
         // Add profile image
         requestData.append('photo', selectedFile)
+        
+        // Debug logging for FormData
+        console.log('=== UPLOADING WITH FORMDATA ===')
+        console.log('Selected file:', selectedFile)
+        console.log('Selected file name:', selectedFile.name)
+        console.log('Selected file size:', selectedFile.size)
+        console.log('Selected file type:', selectedFile.type)
+        console.log('FormData entries:')
+        for (let pair of requestData.entries()) {
+          console.log('  ', pair[0], ':', pair[1])
+        }
       } else {
         requestData = dataToSend
+        console.log('=== UPLOADING JSON ===', dataToSend)
       }
 
       // Call API
+      console.log('Calling API...')
       const response = await authAPI.completeProfile(requestData)
+      console.log('API response:', response)
       
       // Update user context with new data
       const updatedUser = response.data || response.user || response
@@ -229,7 +262,11 @@ const EditProfile = () => {
       }, 1500)
 
     } catch (err) {
-      console.error('Error updating profile:', err)
+      console.error('=== ERROR UPDATING PROFILE ===')
+      console.error('Error object:', err)
+      console.error('Error status:', err.status)
+      console.error('Error message:', err.message)
+      console.error('Error errors:', err.errors)
       
       // Handle specific validation errors from backend
       if (err.errors) {

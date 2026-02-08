@@ -11,6 +11,7 @@ import Modul from './Main/Modul.jsx'
 import Profile from './Main/Profile/Profile.jsx'
 import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
+import Update from './Main/Update.jsx'
 import EditProfile from './Main/Profile/EditProfile.jsx'
 import Learning from './Learning/Learning.jsx'
 import Simulasi from './Learning/Simulasi.jsx'
@@ -31,6 +32,8 @@ import Video1 from './Learning/Videos/Video1.jsx'
 import VideoPlayer from './Learning/Videos/VideoPlayer.jsx'
 import UploadVideo from './Learning/Videos/UploadVideo.jsx'
 
+
+
 function AppContent() {
   const location = useLocation()
   
@@ -49,7 +52,7 @@ function AppContent() {
 
       <Routes>
         <Route index element={<Splash />} />
-        <Route path='/splash2' element={<Splash2 />} />
+        <Route path='/v2' element={<Splash2 />} />
         <Route path='/login' element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/modul" element={<Modul />} />
@@ -72,6 +75,7 @@ function AppContent() {
         <Route path='/tugas-akhir' element={<TugasAkhir />} />
         <Route path='/tugas-akhir/detail' element={<TugasAkhirDetail />} />
         <Route path='/upload-video' element={<UploadVideo />} />
+        <Route path='/splash2' element={<Update />} />
         {/* <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} /> */}
       </Routes>
     </>
