@@ -141,11 +141,6 @@ const Quiz = () => {
             Kembali ke Latihan
           </button>
         </div>
-
-        {/* Bottom indicator */}
-        <div className="pb-2">
-          <div className="w-32 h-1 bg-white/30 rounded-full"></div>
-        </div>
       </section>
     )
   }

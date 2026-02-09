@@ -330,7 +330,16 @@ const EditProfile = () => {
         
         {/* Profile Image - Using label for native file input trigger (better WebView support) */}
         <label htmlFor="profileImageInput" className="relative w-20 h-20 rounded-full mb-6 overflow-hidden bg-purple-secondary group cursor-pointer block">
-          <img src={profileImage} alt="Profile" className='w-full h-full object-cover' />
+          <img 
+            src={profileImage} 
+            alt="Profile" 
+            className='w-full h-full object-cover'
+            crossOrigin="anonymous"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = profil;
+            }}
+          />
           
           {/* Overlay on hover */}
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

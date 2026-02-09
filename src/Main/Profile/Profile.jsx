@@ -81,7 +81,16 @@ const Profile = () => {
 
             <div className="flex gap-4 items-center">
               <div className="bg-purple-secondary h-16 w-16 p-1 rounded-full relative overflow-hidden">
-                <img src={displayUser?.photo_url || profil} alt="" className='object-cover w-full h-full rounded-full' />
+                <img 
+                  src={displayUser?.photo_url || profil} 
+                  alt="" 
+                  className='object-cover w-full h-full rounded-full'
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = profil;
+                  }}
+                />
               </div>
 
               <div className="flex flex-col gap-0.5 font-Montserrat text-black">
