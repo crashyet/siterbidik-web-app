@@ -292,6 +292,186 @@ export const videoAPI = {
       method: 'POST',
     })
   },
+
+  /**
+   * Get video comments
+   * @param {number} id - Video ID
+   * @returns {Promise<Array>} Array of comments
+   */
+  getComments: async (id) => {
+    return apiRequest(`/videos/${id}/comments`, {
+      method: 'GET',
+    })
+  },
+
+  /**
+   * Add comment to video
+   * @param {number} id - Video ID
+   * @param {string} comment - Comment text
+   * @returns {Promise<Object>} Created comment
+   */
+  addComment: async (id, comment) => {
+    return apiRequest(`/videos/${id}/comments`, {
+      method: 'POST',
+      body: JSON.stringify({ comment }),
+    })
+  },
+
+  /**
+   * Search videos
+   * @param {string} query - Search query
+   * @returns {Promise<Array>} Array of matching videos
+   */
+  searchVideos: async (query) => {
+    return apiRequest(`/videos?search=${query}`, {
+      method: 'GET',
+    })
+  },
+
+  // ============ ADMIN FUNCTIONS ============
+
+  /**
+   * Upload new video (Admin/Guru only)
+   * @param {FormData} formData - Form data with video file and metadata
+   */
+  uploadVideoAdmin: async (formData) => {
+    return apiRequest('/admin/videos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': undefined,
+      },
+      body: formData,
+    })
+  },
+
+  /**
+   * Update video metadata (Admin/Guru only)
+   * @param {number} id - Video ID
+   * @param {Object} data - Updated video data
+   */
+  updateVideoAdmin: async (id, data) => {
+    return apiRequest(`/admin/videos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    })
+  },
+
+  /**
+   * Delete video (Admin/Guru only)
+   * @param {number} id - Video ID
+   */
+  deleteVideoAdmin: async (id) => {
+    return apiRequest(`/admin/videos/${id}`, {
+      method: 'DELETE',
+    })
+  },
+
+  /**
+   * Get video analytics (Admin/Guru only)
+   * @param {number} id - Video ID
+   */
+  getVideoAnalytics: async (id) => {
+    return apiRequest(`/admin/videos/${id}/analytics`, {
+      method: 'GET',
+    })
+  },
+}
+
+// Category API endpoints
+export const categoryAPI = {
+  /**
+   * Get all categories
+   */
+  getAllCategories: async () => {
+    return apiRequest('/categories', {
+      method: 'GET',
+    })
+  },
+
+  /**
+   * Get videos by category
+   * @param {string} slug - Category slug
+   */
+  getVideosByCategory: async (slug) => {
+    return apiRequest(`/categories/${slug}/videos`, {
+      method: 'GET',
+    })
+  },
+}
+
+// Assignment/Submission API endpoints
+export const assignmentAPI = {
+  /**
+   * Upload student submission
+   * @param {FormData} submissionData - { type, assignment_id, file }
+   */
+  uploadSubmission: async (submissionData) => {
+    return apiRequest('/submissions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': undefined,
+      },
+      body: submissionData,
+    })
+  },
+
+  /**
+   * Get submissions for an assignment (Guru only)
+   * @param {string} type - 'bicara' or 'tugas_akhir'
+   * @param {string} assignment_id - ID of the assignment
+   */
+  getSubmissions: async (type, assignment_id) => {
+    return apiRequest(`/submissions?type=${type}&assignment_id=${assignment_id}`, {
+      method: 'GET',
+    })
+  },
+
+  /**
+   * Get current student's submission for an assignment
+   * @param {string} type - 'bicara' or 'tugas_akhir'
+   * @param {string} assignment_id - ID of the assignment
+   */
+  getMySubmission: async (type, assignment_id) => {
+    return apiRequest(`/submissions/my?type=${type}&assignment_id=${assignment_id}`, {
+      method: 'GET',
+    })
+  },
+
+  /**
+   * Get all current student's submissions
+   */
+  getMySubmissionsAll: async () => {
+    return apiRequest('/submissions/my-all', {
+      method: 'GET',
+    })
+  },
+
+  /**
+   * Grade a student submission (Guru only)
+   * @param {number} submissionId - ID of the submission
+   * @param {number} score - 0-100
+   * @param {string} feedback - Optional feedback
+   */
+  gradeSubmission: async (submissionId, score, feedback) => {
+    return apiRequest(`/submissions/${submissionId}/grade`, {
+      method: 'POST',
+      body: JSON.stringify({ score, feedback }),
+    })
+  },
+}
+
+/**
+ * Get full URL for stored files (storage path)
+ * @param {string} path - Relative path (e.g., 'photos/abc.jpg')
+ * @returns {string} Full URL
+ */
+export const getStorageUrl = (path) => {
+  if (!path) return null
+  if (path.startsWith('http')) return path
+  
+  // Derive storage URL from API_BASE_URL (removing /api)
+  const baseUrl = API_BASE_URL.replace(/\/api$/, '')
+  return `${baseUrl}/storage/${path}`
 }
 
 // Export API base URL for other uses

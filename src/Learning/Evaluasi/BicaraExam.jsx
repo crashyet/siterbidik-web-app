@@ -1,12 +1,51 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { examData } from '../../data/examData'
+import { authAPI, assignmentAPI } from '../../services/api'
+import { useAuth } from '../../context/AuthContext'
+import { useEffect, useState } from 'react'
 
 const BicaraExam = () => {
   const navigate = useNavigate()
+  const { user: contextUser } = useAuth()
+  const [userProfile, setUserProfile] = useState(null)
+  const [mySubmissions, setMySubmissions] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const [profileResponse, submissionsResponse] = await Promise.all([
+          authAPI.getProfile().catch(() => null),
+          assignmentAPI.getMySubmissionsAll().catch(() => ({ data: [] }))
+        ])
+
+        if (profileResponse) {
+          setUserProfile(profileResponse.data || profileResponse.user || profileResponse)
+        }
+        
+        if (submissionsResponse && submissionsResponse.data) {
+          setMySubmissions(submissionsResponse.data)
+        }
+      } catch (error) {
+        console.error('Error fetching exam status:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const displayUser = userProfile || contextUser
 
   // Convert examData object to array for mapping
   const exams = Object.values(examData)
+
+  const getStatus = (examId) => {
+    const submission = mySubmissions.find(s => s.assignment_id === examId.toString() && s.type === 'bicara')
+    return submission ? 'Telah selesai' : 'Belum selesai'
+  }
 
   return (
     <section className='relative w-full min-h-screen bg-white py-6 px-8'>
@@ -52,12 +91,15 @@ const BicaraExam = () => {
                 <p className="text-xs text-gray-400">{exam.author}</p>
               </div>
 
-              {/* Status */}
-              <div className="flex-shrink-0">
-                <span className={`text-xs font-normal ${exam.id === 1 ? 'text-[#3BC482]' : 'text-gray-400'}`}>
-                  {exam.id === 1 ? '(Telah selesai)' : '(Belum selesai)'}
-                </span>
-              </div>
+ 
+              {/* Status - Only for Students */}
+              {!loading && displayUser?.role === 'siswa' && (
+                <div className="flex-shrink-0">
+                  <span className={`text-xs font-normal ${getStatus(exam.id) === 'Telah selesai' ? 'text-[#3BC482]' : 'text-gray-400'}`}>
+                    ({getStatus(exam.id)})
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         ))}

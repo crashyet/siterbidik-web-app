@@ -1,12 +1,52 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { examData } from '../../data/examData'
+import { authAPI, assignmentAPI } from '../../services/api'
+import { useAuth } from '../../context/AuthContext'
+import { useEffect, useState } from 'react'
 
 const TugasAkhir = () => {
   const navigate = useNavigate()
+  const { user: contextUser } = useAuth()
+  const [userProfile, setUserProfile] = useState(null)
+  const [mySubmissions, setMySubmissions] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  // Convert examData object to array for mapping
-  const exams = Object.values(examData)
+  // Example projects list (since TugasAkhir previously only had one hardcoded one)
+  const projects = [
+    { id: 'tugas_akhir_01', title: 'Terampil Bernegosiasi di Dunia Kerja', author: 'Pipit Dwi Komariah' }
+  ]
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const [profileResponse, submissionsResponse] = await Promise.all([
+          authAPI.getProfile().catch(() => null),
+          assignmentAPI.getMySubmissionsAll().catch(() => ({ data: [] }))
+        ])
+
+        if (profileResponse) {
+          setUserProfile(profileResponse.data || profileResponse.user || profileResponse)
+        }
+        
+        if (submissionsResponse && submissionsResponse.data) {
+          setMySubmissions(submissionsResponse.data)
+        }
+      } catch (error) {
+        console.error('Error fetching project status:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  const displayUser = userProfile || contextUser
+
+  const getStatus = (projectId) => {
+    const submission = mySubmissions.find(s => s.assignment_id === projectId.toString() && s.type === 'tugas_akhir')
+    return submission ? 'Telah selesai' : 'Belum selesai'
+  }
 
   return (
     <section className='relative w-full min-h-screen bg-white py-6 px-8'>
@@ -28,36 +68,41 @@ const TugasAkhir = () => {
 
       {/* Exam List */}
       <div className="space-y-4">
-        <div
-          onClick={() => navigate('/tugas-akhir/detail')}
-          className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-        >
-          <div className="flex items-center gap-4">
-            {/* Icon */}
-            <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M14 2V8H20" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M16 13H8" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M16 17H8" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M10 9H9H8" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            onClick={() => navigate('/tugas-akhir/detail')}
+            className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+          >
+            <div className="flex items-center gap-4">
+              {/* Icon */}
+              <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center flex-shrink-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M14 2V8H20" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M16 13H8" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M16 17H8" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M10 9H9H8" stroke="#9747FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
 
-            {/* Content */}
-            <div className="flex-1">
-              <h3 className="font-medium text-gray-900 text-sm mb-1">Terampil Bernegosiasi di Dunia Kerja</h3>
-              <p className="text-xs text-gray-400">Pipit Dwi Komariah</p>
-            </div>
+              {/* Content */}
+              <div className="flex-1">
+                <h3 className="font-medium text-gray-900 text-sm mb-1">{project.title}</h3>
+                <p className="text-xs text-gray-400">{project.author}</p>
+              </div>
 
-            {/* Status */}
-            <div className="flex-shrink-0">
-              <span className={`text-xs font-normal text-gray-400`}>
-                (Belum selesai)
-              </span>
+              {/* Status - Only for Students */}
+              {!loading && displayUser?.role === 'siswa' && (
+                <div className="flex-shrink-0">
+                  <span className={`text-xs font-normal ${getStatus(project.id) === 'Telah selesai' ? 'text-[#3BC482]' : 'text-gray-400'}`}>
+                    ({getStatus(project.id)})
+                  </span>
+                </div>
+              )}
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   )
