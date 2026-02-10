@@ -106,8 +106,71 @@ const EditProfile = () => {
       }
     }
 
+  // Compress image function
+  const compressImage = (file, maxWidth = 800, maxHeight = 800, quality = 0.8) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      
+      reader.onload = (event) => {
+        const img = new Image()
+        img.src = event.target.result
+        
+        img.onload = () => {
+          // Calculate new dimensions while maintaining aspect ratio
+          let { width, height } = img
+          
+          if (width > maxWidth || height > maxHeight) {
+            const ratio = Math.min(maxWidth / width, maxHeight / height)
+            width = Math.round(width * ratio)
+            height = Math.round(height * ratio)
+          }
+          
+          // Create canvas and draw resized image
+          const canvas = document.createElement('canvas')
+          canvas.width = width
+          canvas.height = height
+          
+          const ctx = canvas.getContext('2d')
+          ctx.drawImage(img, 0, 0, width, height)
+          
+          // Convert to blob
+          canvas.toBlob(
+            (blob) => {
+              if (blob) {
+                // Create new file from blob
+                const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, '.jpg'), {
+                  type: 'image/jpeg',
+                  lastModified: Date.now(),
+                })
+                
+                console.log('=== IMAGE COMPRESSED ===')
+                console.log('Original size:', (file.size / 1024).toFixed(2), 'KB')
+                console.log('Compressed size:', (compressedFile.size / 1024).toFixed(2), 'KB')
+                console.log('Compression ratio:', ((1 - compressedFile.size / file.size) * 100).toFixed(1), '%')
+                
+                resolve({
+                  file: compressedFile,
+                  preview: canvas.toDataURL('image/jpeg', quality)
+                })
+              } else {
+                reject(new Error('Failed to compress image'))
+              }
+            },
+            'image/jpeg',
+            quality
+          )
+        }
+        
+        img.onerror = () => reject(new Error('Failed to load image'))
+      }
+      
+      reader.onerror = () => reject(new Error('Failed to read file'))
+    })
+  }
+
   // Handle image file selection
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0]
     
     // Debug logging
@@ -115,7 +178,7 @@ const EditProfile = () => {
     console.log('File object:', file)
     console.log('File name:', file?.name)
     console.log('File type:', file?.type)
-    console.log('File size:', file?.size)
+    console.log('File size:', (file?.size / 1024).toFixed(2), 'KB')
     
     if (file) {
       // Validate file type - also check by extension for WebView compatibility
@@ -131,31 +194,31 @@ const EditProfile = () => {
         return
       }
       
-      // Validate file size (max 5MB)
-      const maxSize = 5 * 1024 * 1024 // 5MB in bytes
+      // Validate file size (max 10MB before compression)
+      const maxSize = 10 * 1024 * 1024 // 10MB in bytes
       if (file.size > maxSize) {
-        setError('Ukuran file terlalu besar. Maksimal 5MB.')
+        setError('Ukuran file terlalu besar. Maksimal 10MB.')
         return
       }
       
-      // Create preview URL
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        console.log('File read successfully, preview created')
-        setProfileImage(reader.result)
+      try {
+        // Compress the image
+        console.log('Compressing image...')
+        const { file: compressedFile, preview } = await compressImage(file)
+        
+        // Set preview
+        setProfileImage(preview)
+        
+        // Store the compressed file for upload
+        setSelectedFile(compressedFile)
+        console.log('Compressed file stored for upload')
+        
+        // Clear any previous errors
+        setError('')
+      } catch (err) {
+        console.error('Error compressing image:', err)
+        setError('Gagal memproses gambar. Silakan coba lagi.')
       }
-      reader.onerror = (error) => {
-        console.error('Error reading file:', error)
-        setError('Gagal membaca file gambar.')
-      }
-      reader.readAsDataURL(file)
-      
-      // Store the file for upload
-      setSelectedFile(file)
-      console.log('File stored for upload')
-      
-      // Clear any previous errors
-      setError('')
     }
   }
 

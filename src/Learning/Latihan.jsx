@@ -79,7 +79,7 @@ const Latihan = () => {
             <div className="bg-white flex items-center gap-4 p-2.5 rounded-2xl">
               {/* <div className="w-12.5 h-12.5 rounded-full bg-stroke flex-shrink-0"></div> */}
               <div className="bg-purple-secondary h-16 w-16 p-1 rounded-full relative overflow-hidden">
-                <img src={displayUser?.avatar || profil} alt="" className='object-cover w-full h-full rounded-full' />
+                <img src={displayUser?.photo_url || profil} alt="" className='object-cover w-full h-full rounded-full' />
               </div>
               <div className="">
                 <h1 className='font-Montserrat font-bold text-black text-xs'>{displayUser?.name}</h1>
