@@ -81,7 +81,7 @@ const Panduan = () => {
           {/* PDF Viewer */}
           <div className="flex-1 overflow-y-auto w-full bg-gray-100 flex justify-center">
              <div className="w-full max-w-4xl py-4">
-                <PDFViewer file="/document/PanduanSiterbidik.pdf" />
+                <PDFViewer file="/document/BukuPanduanFiks.pdf" />
              </div>
           </div>
         </div>
