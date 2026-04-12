@@ -1,5 +1,5 @@
 const Update = () => {
-  const updateLink = 'https://www.mediafire.com/file/4mdgeuafxdevv7m/Siterbidik-v2.2.apk/file';
+  const updateLink = 'https://www.mediafire.com/file/l0d8jg0e2lee0tl/Siterbidik-v3.1.apk/file';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-main to-purple-700 flex flex-col items-center justify-center px-6 py-8">

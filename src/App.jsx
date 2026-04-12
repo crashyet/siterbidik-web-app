@@ -52,7 +52,7 @@ function AppContent() {
 
       <Routes>
         <Route index element={<Splash />} />
-        <Route path='/v2' element={<Splash2 />} />
+        <Route path='/v3' element={<Splash2 />} />
         <Route path='/login' element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/modul" element={<Modul />} />
@@ -75,7 +75,10 @@ function AppContent() {
         <Route path='/tugas-akhir' element={<TugasAkhir />} />
         <Route path='/tugas-akhir/detail' element={<TugasAkhirDetail />} />
         <Route path='/upload-video' element={<UploadVideo />} />
+
+        {/* update */}
         <Route path='/splash2' element={<Update />} />
+        <Route path='/v2' element={<Update />} />
         {/* <Route path='/materi/teks-negosiasi-turnjs' element={<MateriFlipbookTurnJS />} /> */}
       </Routes>
     </>
